@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CHAROEN Khon Kaen - เที่ยวขอนแก่น คลิกเดียวจบ</title>
+
+  <!-- Google Fonts: Prompt & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#fff7ed',
+              100: '#ffedd5',
+              200: '#fed7aa',
+              300: '#fdba74',
+              400: '#fb923c',
+              500: '#f97316',
+              600: '#ea580c',
+              700: '#c2410c',
+              800: '#9a3412',
+              900: '#7c2d12',
+            }
+          },
+          fontFamily: {
+            sans: ['Prompt', 'Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+    .skeleton {
+      background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+    }
+
+    .thai-word-break {
+      word-break: break-word;
+      overflow-wrap: break-word;
+      line-break: strict;
+    }
+  </style>
+</head>
+<body class="bg-stone-50 text-stone-800 font-sans antialiased min-h-screen flex flex-col selection:bg-brand-500 selection:text-white">
+
+  <!-- ========================================== -->
+  <!-- 1. NAVBAR                                  -->
+  <!-- ========================================== -->
+  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md shadow-sm border-b border-stone-200/80 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- Logo -->
+        <a href="#home" class="flex items-center gap-3 group">
+          <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-brand-500 via-brand-600 to-brand-700 flex items-center justify-center text-white font-bold text-lg shadow-md shadow-brand-500/25 group-hover:scale-105 transition-transform duration-300">
+            CK
+          </div>
+          <div class="flex flex-col">
+            <span class="text-xl sm:text-2xl font-bold tracking-tight text-stone-900 leading-none">
+              CHAROEN
+            </span>
+            <span class="text-[11px] font-semibold tracking-widest text-brand-600 uppercase mt-0.5">
+              Khon Kaen
+            </span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden xl:flex items-center gap-1 text-sm font-medium text-stone-600">
+          <a href="#home" class="nav-item px-3.5 py-2 rounded-xl hover:text-brand-600 hover:bg-stone-100 transition-colors" data-th="หน้าแรก" data-en="Home">หน้าแรก</a>
+          <a href="#attractions" class="nav-item px-3.5 py-2 rounded-xl hover:text-brand-600 hover:bg-stone-100 transition-colors" data-th="สถานที่ท่องเที่ยว" data-en="Attractions">สถานที่ท่องเที่ยว</a>
+          <a href="#food" class="nav-item px-3.5 py-2 rounded-xl hover:text-brand-600 hover:bg-stone-100 transition-colors" data-th="ร้านอาหารและเครื่องดื่ม" data-en="Food & Drinks">ร้านอาหารและเครื่องดื่ม</a>
+          <a href="#souvenirs" class="nav-item px-3.5 py-2 rounded-xl hover:text-brand-600 hover:bg-stone-100 transition-colors" data-th="ของฝาก" data-en="Souvenirs">ของฝาก</a>
+          <a href="#facilities" class="nav-item px-3.5 py-2 rounded-xl hover:text-brand-600 hover:bg-stone-100 transition-colors" data-th="สถานที่อำนวยความสะดวก" data-en="Facilities">สถานที่อำนวยความสะดวก</a>
+          <a href="#hotel-facilities" class="nav-item px-3.5 py-2 rounded-xl hover:text-brand-600 hover:bg-stone-100 transition-colors" data-th="สิ่งอำนวยความสะดวกโรงแรม" data-en="Hotel Facilities">สิ่งอำนวยความสะดวกโรงแรม</a>
+          <a href="#contact" class="nav-item px-3.5 py-2 rounded-xl hover:text-brand-600 hover:bg-stone-100 transition-colors" data-th="ติดต่อเรา" data-en="Contact Us">ติดต่อเรา</a>
+        </nav>
+
+        <!-- Language Switcher & Hamburger -->
+        <div class="flex items-center gap-3">
+          <div class="flex items-center bg-stone-100/90 p-1 rounded-full border border-stone-200/80 text-xs font-semibold" role="group" aria-label="Language selector">
+            <button id="lang-th" onclick="setLanguage('th')" class="px-3 py-1.5 rounded-full transition-all duration-200 bg-brand-600 text-white shadow-sm" aria-label="เปลี่ยนเป็นภาษาไทย">
+              TH
+            </button>
+            <button id="lang-en" onclick="setLanguage('en')" class="px-3 py-1.5 rounded-full transition-all duration-200 text-stone-600 hover:text-brand-600" aria-label="Switch to English">
+              EN
+            </button>
+          </div>
+
+          <button id="menu-btn" onclick="toggleMobileMenu()" class="xl:hidden p-2.5 rounded-xl text-stone-600 hover:text-brand-600 hover:bg-stone-100 focus:outline-none" aria-label="เปิดเมนูนำทาง">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Mobile Drawer Menu -->
+    <div id="mobile-menu" class="hidden xl:hidden border-t border-stone-200 bg-white px-5 pt-3 pb-6 space-y-1 text-base font-medium text-stone-700 shadow-xl transition-all duration-300">
+      <a href="#home" onclick="closeMobileMenu()" class="block px-3 py-2.5 rounded-xl hover:bg-brand-50 hover:text-brand-600" data-th="หน้าแรก" data-en="Home">หน้าแรก</a>
+      <a href="#attractions" onclick="closeMobileMenu()" class="block px-3 py-2.5 rounded-xl hover:bg-brand-50 hover:text-brand-600" data-th="สถานที่ท่องเที่ยว" data-en="Attractions">สถานที่ท่องเที่ยว</a>
+      <a href="#food" onclick="closeMobileMenu()" class="block px-3 py-2.5 rounded-xl hover:bg-brand-50 hover:text-brand-600" data-th="ร้านอาหารและเครื่องดื่ม" data-en="Food & Drinks">ร้านอาหารและเครื่องดื่ม</a>
+      <a href="#souvenirs" onclick="closeMobileMenu()" class="block px-3 py-2.5 rounded-xl hover:bg-brand-50 hover:text-brand-600" data-th="ของฝาก" data-en="Souvenirs">ของฝาก</a>
+      <a href="#facilities" onclick="closeMobileMenu()" class="block px-3 py-2.5 rounded-xl hover:bg-brand-50 hover:text-brand-600" data-th="สถานที่อำนวยความสะดวก" data-en="Facilities">สถานที่อำนวยความสะดวก</a>
+      <a href="#hotel-facilities" onclick="closeMobileMenu()" class="block px-3 py-2.5 rounded-xl hover:bg-brand-50 hover:text-brand-600" data-th="สิ่งอำนวยความสะดวกโรงแรม" data-en="Hotel Facilities">สิ่งอำนวยความสะดวกโรงแรม</a>
+      <a href="#contact" onclick="closeMobileMenu()" class="block px-3 py-2.5 rounded-xl hover:bg-brand-50 hover:text-brand-600" data-th="ติดต่อเรา" data-en="Contact Us">ติดต่อเรา</a>
+    </div>
+  </header>
+
+  <main class="flex-grow">
+    <!-- ========================================== -->
+    <!-- 2. HERO SECTION                            -->
+    <!-- ========================================== -->
+    <section id="home" class="relative min-h-[460px] lg:min-h-[520px] flex items-center justify-center text-center overflow-hidden bg-stone-950">
+      <div class="absolute inset-0 z-0">
+        <img 
+          src="https://lh3.googleusercontent.com/d/1FzP_1hWdrgCSyH78ZSW_aOT4LYsuJES2" 
+          alt="บรรยากาศท่องเที่ยวขอนแก่น CHAROEN Khon Kaen Scenic View" 
+          class="w-full h-full object-cover object-center opacity-35"
+          onerror="this.src='https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=1800&q=80'"
+        />
+        <div class="absolute inset-0 bg-gradient-to-b from-stone-950/80 via-stone-950/50 to-stone-950"></div>
+      </div>
+
+      <div class="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-20 flex flex-col items-center">
+        <!-- ยินดีต้อนรับสู่ขอนแก่น ข้อความล้วนเรียบหรู -->
+        <p class="text-brand-400 text-sm sm:text-base font-medium tracking-widest mb-3" data-th="ยินดีต้อนรับสู่ขอนแก่น" data-en="Welcome to Khon Kaen">
+          ยินดีต้อนรับสู่ขอนแก่น
+        </p>
+        
+        <!-- Main Tagline -->
+        <h1 class="text-3xl sm:text-5xl md:text-6xl font-extrabold text-white tracking-tight leading-tight mb-6">
+          <span id="hero-tagline-th" class="block text-stone-100">เที่ยวขอนแก่น คลิกเดี๋ยวจบ</span>
+          <span id="hero-tagline-en" class="block text-2xl sm:text-3xl md:text-4xl font-light text-brand-400 mt-2 tracking-wide font-sans">
+            Khon Kaen at Your Fingertips.
+          </span>
+        </h1>
+
+        <!-- Maps Quick Hint -->
+        <div class="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 text-stone-200 text-xs sm:text-sm shadow-lg">
+          <div class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></div>
+          <span data-th="กดที่รูปภาพในการ์ดใดก็ได้ เพื่อเปิดแผนที่ Google Maps นำทางได้ทันที"
+                data-en="Tap any picture on the cards to open Google Maps navigation instantly">
+            กดที่รูปภาพในการ์ดใดก็ได้ เพื่อเปิดแผนที่ Google Maps นำทางได้ทันที
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 3. ATTRACTIONS SECTION (10 CARDS)          -->
+    <!-- ========================================== -->
+    <section id="attractions" class="py-16 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <div class="inline-flex items-center gap-1.5 text-brand-600 font-semibold text-xs sm:text-sm uppercase tracking-wider mb-2">
+          <i data-lucide="compass" class="w-4 h-4"></i>
+          <span data-th="จุดหมายยอดนิยม" data-en="Top Destinations">จุดหมายยอดนิยม</span>
+        </div>
+        <h2 class="text-2xl sm:text-4xl font-bold text-stone-900 tracking-tight" data-th="สถานที่ท่องเที่ยวขอนแก่น" data-en="Khon Kaen Attractions">
+          สถานที่ท่องเที่ยวขอนแก่น
+        </h2>
+        <p class="mt-3 text-sm sm:text-base text-stone-600 thai-word-break"
+           data-th="สัมผัสเสน่ห์ศิลปวัฒนธรรม ธรรมชาติอันงดงาม และไลฟ์สไตล์ใจกลางเมืองเสียงแคนดอกคูน"
+           data-en="Experience the captivating heritage, picturesque nature, and lively urban lifestyle of Khon Kaen.">
+          สัมผัสเสน่ห์ศิลปวัฒนธรรม ธรรมชาติอันงดงาม และไลฟ์สไตล์ใจกลางเมืองเสียงแคนดอกคูน
+        </p>
+      </div>
+
+      <div id="attractions-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        <!-- Rendered dynamically -->
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 4. FOOD & DRINKS (4 TABS)                  -->
+    <!-- ========================================== -->
+    <section id="food" class="py-16 sm:py-24 bg-stone-100/70 border-y border-stone-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-10">
+          <div class="inline-flex items-center gap-1.5 text-brand-600 font-semibold text-xs sm:text-sm uppercase tracking-wider mb-2">
+            <i data-lucide="utensils" class="w-4 h-4"></i>
+            <span data-th="รสชาติเอกลักษณ์" data-en="Culinary Delights">รสชาติเอกลักษณ์</span>
+          </div>
+          <h2 class="text-2xl sm:text-4xl font-bold text-stone-900 tracking-tight" data-th="ร้านอาหารและเครื่องดื่ม" data-en="Food & Drinks">
+            ร้านอาหารและเครื่องดื่ม
+          </h2>
+          <p class="mt-2 text-sm sm:text-base text-stone-600 thai-word-break"
+             data-th="อิ่มอร่อยกับร้านอาหารเช้าชื่อดัง อาหารท้องถิ่นเลิศรส อาหารนานาชาติ และคาเฟ่บรรยากาศน่านั่ง"
+             data-en="Delight in famed breakfast spots, authentic local cuisine, international menus, and trendy cafes.">
+            อิ่มอร่อยกับร้านอาหารเช้าชื่อดัง อาหารท้องถิ่นเลิศรส อาหารนานาชาติ และคาเฟ่บรรยากาศน่านั่ง
+          </p>
+        </div>
+
+        <div class="flex items-center justify-start sm:justify-center overflow-x-auto no-scrollbar gap-2 pb-2 mb-8" role="tablist">
+          <button onclick="switchFoodTab('breakfast')" id="tab-breakfast" class="food-tab-btn px-4 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all whitespace-nowrap bg-brand-600 text-white shadow-md shadow-brand-600/20" role="tab" aria-selected="true">
+            <span data-th="ร้านอาหารเช้า" data-en="Breakfast">ร้านอาหารเช้า</span>
+          </button>
+          <button onclick="switchFoodTab('recommended')" id="tab-recommended" class="food-tab-btn px-4 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all whitespace-nowrap bg-white text-stone-700 hover:bg-stone-50 border border-stone-200" role="tab" aria-selected="false">
+            <span data-th="ร้านอาหารในท้องถิ่น / แนะนำ" data-en="Recommended Local">ร้านอาหารในท้องถิ่น / แนะนำ</span>
+          </button>
+          <button onclick="switchFoodTab('international')" id="tab-international" class="food-tab-btn px-4 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all whitespace-nowrap bg-white text-stone-700 hover:bg-stone-50 border border-stone-200" role="tab" aria-selected="false">
+            <span data-th="ร้านอาหารนานาชาติ" data-en="International Cuisine">ร้านอาหารนานาชาติ</span>
+          </button>
+          <button onclick="switchFoodTab('cafes')" id="tab-cafes" class="food-tab-btn px-4 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all whitespace-nowrap bg-white text-stone-700 hover:bg-stone-50 border border-stone-200" role="tab" aria-selected="false">
+            <span data-th="คาเฟ่" data-en="Cafés">คาเฟ่</span>
+          </button>
+        </div>
+
+        <div id="intl-filter-chips" class="hidden flex-wrap items-center justify-center gap-2 mb-8">
+          <!-- Rendered dynamically -->
+        </div>
+
+        <div id="food-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 5. SOUVENIRS SECTION (5 CARDS)             -->
+    <!-- ========================================== -->
+    <section id="souvenirs" class="py-16 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <div class="inline-flex items-center gap-1.5 text-brand-600 font-semibold text-xs sm:text-sm uppercase tracking-wider mb-2">
+          <i data-lucide="gift" class="w-4 h-4"></i>
+          <span data-th="ของฝากของดี" data-en="Local Gifts & Souvenirs">ของฝากของดี</span>
+        </div>
+        <h2 class="text-2xl sm:text-4xl font-bold text-stone-900 tracking-tight" data-th="ของฝากเมืองขอนแก่น" data-en="Khon Kaen Souvenirs">
+          ของฝากเมืองขอนแก่น
+        </h2>
+        <p class="mt-2 text-sm sm:text-base text-stone-600 thai-word-break"
+           data-th="คัดสรรร้านของฝากยอดนิยม กุนเชียง หมูยอ แหนมเนื้อแน่น และผลิตภัณฑ์ของดีฝากคนที่บ้าน"
+           data-en="A handpicked collection of premier souvenir shops offering famous sausages, cured meats, and local specialities.">
+          คัดสรรร้านของฝากยอดนิยม กุนเชียง หมูยอ แหนมเนื้อแน่น และผลิตภัณฑ์ของดีฝากคนที่บ้าน
+        </p>
+      </div>
+
+      <div id="souvenirs-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        <!-- Rendered dynamically -->
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 6. NEARBY FACILITIES (4 CARDS)             -->
+    <!-- ========================================== -->
+    <section id="facilities" class="py-16 sm:py-24 bg-stone-100/70 border-y border-stone-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-12">
+          <div class="inline-flex items-center gap-1.5 text-brand-600 font-semibold text-xs sm:text-sm uppercase tracking-wider mb-2">
+            <i data-lucide="shield-check" class="w-4 h-4"></i>
+            <span data-th="อุ่นใจทุกการเดินทาง" data-en="Travel Essentials">อุ่นใจทุกการเดินทาง</span>
+          </div>
+          <h2 class="text-2xl sm:text-4xl font-bold text-stone-900 tracking-tight" data-th="สถานที่อำนวยความสะดวก" data-en="Nearby Facilities">
+            สถานที่อำนวยความสะดวก
+          </h2>
+          <p class="mt-2 text-sm sm:text-base text-stone-600 thai-word-break"
+             data-th="ข้อมูลสถานที่สำคัญ เช่น โรงพยาบาล ร้านขายยา สถานีตำรวจ และไปรษณีย์ เพื่อความปลอดภัยและความสะดวกสบายของคุณ"
+             data-en="Crucial facilities including hospitals, pharmacies, police stations, and postal services to ensure a safe and smooth journey.">
+            ข้อมูลสถานที่สำคัญ เช่น โรงพยาบาล ร้านขายยา สถานีตำรวจ และไปรษณีย์ เพื่อความปลอดภัยและความสะดวกสบายของคุณ
+          </p>
+        </div>
+
+        <div id="facilities-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 7. HOTEL FACILITIES (REDESIGNED LUXURY)    -->
+    <!-- ========================================== -->
+    <section id="hotel-facilities" class="py-16 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-14">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-50 border border-brand-200/60 text-brand-700 font-semibold text-xs sm:text-sm tracking-wide mb-3">
+          <i data-lucide="hotel" class="w-4 h-4"></i>
+          <span data-th="สิ่งอำนวยความสะดวกในโรงแรม" data-en="Hotel Facilities">สิ่งอำนวยความสะดวกในโรงแรม</span>
+        </div>
+        <h2 class="text-2xl sm:text-4xl font-bold text-stone-900 tracking-tight" data-th="บริการและสิ่งอำนวยความสะดวก" data-en="Services & Amenities">
+          บริการและสิ่งอำนวยความสะดวก
+        </h2>
+        <p class="mt-2.5 text-sm sm:text-base text-stone-600 thai-word-break"
+           data-th="สัมผัสประสบการณ์การพักผ่อนและจัดประชุมระดับมาตรฐาน ณ โรงแรมเจริญธานี ขอนแก่น"
+           data-en="Experience refined hospitality, leisure, and meeting standards at Charoen Thani Hotel Khon Kaen.">
+          สัมผัสประสบการณ์การพักผ่อนและจัดประชุมระดับมาตรฐาน ณ โรงแรมเจริญธานี ขอนแก่น
+        </p>
+      </div>
+
+      <!-- Hotel Facilities Cards Grid with Elevated Floating Stamp Icons -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-7">
+        
+        <!-- 1. ห้องอาหาร: ไอคอนส้อมมีด (utensils) พร้อมดีไซน์กรอบใหม่ -->
+        <div class="group bg-white rounded-3xl p-7 border border-stone-200/80 shadow-sm hover:shadow-xl hover:border-amber-300 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-amber-100/50 to-transparent rounded-full blur-2xl pointer-events-none group-hover:scale-125 transition-transform duration-500"></div>
+          
+          <div>
+            <!-- New Floating Stamp Icon: มีดส้อม -->
+            <div class="relative w-16 h-16 mb-6">
+              <div class="absolute inset-0 rounded-2xl bg-amber-500/10 rotate-6 group-hover:rotate-12 transition-transform duration-300"></div>
+              <div class="relative w-full h-full rounded-2xl bg-gradient-to-br from-amber-50 to-orange-100/80 border border-amber-200/80 shadow-sm flex items-center justify-center text-amber-600 group-hover:scale-105 group-hover:bg-amber-500 group-hover:text-white transition-all duration-300">
+                <i data-lucide="utensils" class="w-7 h-7 stroke-[1.85]"></i>
+              </div>
+            </div>
+
+            <div class="text-[11px] font-semibold uppercase tracking-wider text-amber-600/90 mb-1" data-th="อาหารและเครื่องดื่ม" data-en="Dining & Cuisine">
+              อาหารและเครื่องดื่ม
+            </div>
+            <h3 class="text-lg font-bold text-stone-900 mb-2 tracking-tight group-hover:text-amber-700 transition-colors" data-th="ห้องอาหาร" data-en="Restaurant">
+              ห้องอาหาร
+            </h3>
+            <p class="text-xs text-stone-500 leading-relaxed mb-6 thai-word-break" data-th="บริการบุฟเฟต์อาหารเช้า อาหารไทยเลิศรส และอาหารนานาชาติหลากหลาย" data-en="Delightful breakfast buffet, authentic Thai dishes, and international gastronomy.">
+              บริการบุฟเฟต์อาหารเช้า อาหารไทยเลิศรส และอาหารนานาชาติหลากหลาย
+            </p>
+          </div>
+
+          <div class="pt-4 border-t border-stone-100 flex items-center justify-between z-10">
+            <span class="text-xs text-stone-400 font-medium" data-th="ตำแหน่ง" data-en="Location">ตำแหน่ง</span>
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-stone-100 text-stone-800 text-xs font-semibold group-hover:bg-amber-50 group-hover:text-amber-800 transition-colors">
+              <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+              <span data-th="ชั้น 2 & Lobby" data-en="Floor 2 & Lobby">ชั้น 2 & Lobby</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- 2. สระว่ายน้ำ: ไอคอนคลื่นน้ำ 3 ขีด (waves) พร้อมดีไซน์กรอบใหม่ -->
+        <div class="group bg-white rounded-3xl p-7 border border-stone-200/80 shadow-sm hover:shadow-xl hover:border-sky-300 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-sky-100/50 to-transparent rounded-full blur-2xl pointer-events-none group-hover:scale-125 transition-transform duration-500"></div>
+          
+          <div>
+            <!-- New Floating Stamp Icon: น้ำ 3 ขีด -->
+            <div class="relative w-16 h-16 mb-6">
+              <div class="absolute inset-0 rounded-2xl bg-sky-500/10 rotate-6 group-hover:rotate-12 transition-transform duration-300"></div>
+              <div class="relative w-full h-full rounded-2xl bg-gradient-to-br from-sky-50 to-cyan-100/80 border border-sky-200/80 shadow-sm flex items-center justify-center text-sky-600 group-hover:scale-105 group-hover:bg-sky-500 group-hover:text-white transition-all duration-300">
+                <i data-lucide="waves" class="w-7 h-7 stroke-[1.85]"></i>
+              </div>
+            </div>
+
+            <div class="text-[11px] font-semibold uppercase tracking-wider text-sky-600/90 mb-1" data-th="การพักผ่อน" data-en="Relaxation">
+              การพักผ่อน
+            </div>
+            <h3 class="text-lg font-bold text-stone-900 mb-2 tracking-tight group-hover:text-sky-700 transition-colors" data-th="สระว่ายน้ำ" data-en="Swimming Pool">
+              สระว่ายน้ำ
+            </h3>
+            <p class="text-xs text-stone-500 leading-relaxed mb-6 thai-word-break" data-th="สระว่ายน้ำกลางแจ้งบรรยากาศสบาย ผ่อนคลายพร้อมชมทัศนียภาพเมืองขอนแก่น" data-en="Outdoor refreshing pool with open-air views and comfortable poolside loungers.">
+              สระว่ายน้ำกลางแจ้งบรรยากาศสบาย ผ่อนคลายพร้อมชมทัศนียภาพเมืองขอนแก่น
+            </p>
+          </div>
+
+          <div class="pt-4 border-t border-stone-100 flex items-center justify-between z-10">
+            <span class="text-xs text-stone-400 font-medium" data-th="ตำแหน่ง" data-en="Location">ตำแหน่ง</span>
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-stone-100 text-stone-800 text-xs font-semibold group-hover:bg-sky-50 group-hover:text-sky-800 transition-colors">
+              <span class="w-1.5 h-1.5 rounded-full bg-sky-500"></span>
+              <span data-th="ชั้น 4" data-en="Floor 4">ชั้น 4</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- 3. ห้องออกกำลังกาย: ไอคอนดัมเบล (dumbbell) พร้อมดีไซน์กรอบใหม่ -->
+        <div class="group bg-white rounded-3xl p-7 border border-stone-200/80 shadow-sm hover:shadow-xl hover:border-emerald-300 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-emerald-100/50 to-transparent rounded-full blur-2xl pointer-events-none group-hover:scale-125 transition-transform duration-500"></div>
+          
+          <div>
+            <!-- New Floating Stamp Icon: ดัมเบล -->
+            <div class="relative w-16 h-16 mb-6">
+              <div class="absolute inset-0 rounded-2xl bg-emerald-500/10 rotate-6 group-hover:rotate-12 transition-transform duration-300"></div>
+              <div class="relative w-full h-full rounded-2xl bg-gradient-to-br from-emerald-50 to-teal-100/80 border border-emerald-200/80 shadow-sm flex items-center justify-center text-emerald-600 group-hover:scale-105 group-hover:bg-emerald-500 group-hover:text-white transition-all duration-300">
+                <i data-lucide="dumbbell" class="w-7 h-7 stroke-[1.85]"></i>
+              </div>
+            </div>
+
+            <div class="text-[11px] font-semibold uppercase tracking-wider text-emerald-600/90 mb-1" data-th="สุขภาพและฟิตเนส" data-en="Health & Fitness">
+              สุขภาพและฟิตเนส
+            </div>
+            <h3 class="text-lg font-bold text-stone-900 mb-2 tracking-tight group-hover:text-emerald-700 transition-colors" data-th="ห้องออกกำลังกาย" data-en="Fitness Center">
+              ห้องออกกำลังกาย
+            </h3>
+            <p class="text-xs text-stone-500 leading-relaxed mb-6 thai-word-break" data-th="อุปกรณ์ออกกำลังกายครบครัน ทั้งเครื่องเล่นคาร์ดิโอ ลู่วิ่ง และเซตยกน้ำหนักมาตรฐาน" data-en="Full fitness facility featuring modern cardio machines, treadmills, and free weights.">
+              อุปกรณ์ออกกำลังกายครบครัน ทั้งเครื่องเล่นคาร์ดิโอ ลู่วิ่ง และเซตยกน้ำหนักมาตรฐาน
+            </p>
+          </div>
+
+          <div class="pt-4 border-t border-stone-100 flex items-center justify-between z-10">
+            <span class="text-xs text-stone-400 font-medium" data-th="ตำแหน่ง" data-en="Location">ตำแหน่ง</span>
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-stone-100 text-stone-800 text-xs font-semibold group-hover:bg-emerald-50 group-hover:text-emerald-800 transition-colors">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+              <span data-th="ชั้น 5" data-en="Floor 5">ชั้น 5</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- 4. ห้องประชุมสัมมนา: ไอคอนจอพรีเซนเทชัน (presentation) พร้อมดีไซน์กรอบใหม่ -->
+        <div class="group bg-white rounded-3xl p-7 border border-stone-200/80 shadow-sm hover:shadow-xl hover:border-violet-300 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-violet-100/50 to-transparent rounded-full blur-2xl pointer-events-none group-hover:scale-125 transition-transform duration-500"></div>
+          
+          <div>
+            <!-- New Floating Stamp Icon: จอพรีเซนต์ -->
+            <div class="relative w-16 h-16 mb-6">
+              <div class="absolute inset-0 rounded-2xl bg-violet-500/10 rotate-6 group-hover:rotate-12 transition-transform duration-300"></div>
+              <div class="relative w-full h-full rounded-2xl bg-gradient-to-br from-violet-50 to-purple-100/80 border border-violet-200/80 shadow-sm flex items-center justify-center text-violet-600 group-hover:scale-105 group-hover:bg-violet-500 group-hover:text-white transition-all duration-300">
+                <i data-lucide="presentation" class="w-7 h-7 stroke-[1.85]"></i>
+              </div>
+            </div>
+
+            <div class="text-[11px] font-semibold uppercase tracking-wider text-violet-600/90 mb-1" data-th="การประชุมและจัดเลี้ยง" data-en="Meetings & Events">
+              การประชุมและจัดเลี้ยง
+            </div>
+            <h3 class="text-lg font-bold text-stone-900 mb-3 tracking-tight group-hover:text-violet-700 transition-colors" data-th="ห้องประชุมสัมมนา" data-en="Meeting Rooms">
+              ห้องประชุมสัมมนา
+            </h3>
+
+            <!-- Room List Badges -->
+            <div class="space-y-1.5 text-xs text-stone-600 mb-6">
+              <div class="flex items-center justify-between p-1.5 rounded-lg bg-stone-50 border border-stone-100">
+                <span data-th="ห้องศรีจันทร์" data-en="Srichan Room">ห้องศรีจันทร์</span>
+                <span class="font-bold text-brand-600 text-[11px]" data-th="ชั้น 4" data-en="Fl. 4">ชั้น 4</span>
+              </div>
+              <div class="flex items-center justify-between p-1.5 rounded-lg bg-stone-50 border border-stone-100">
+                <span data-th="ห้องหลักเมือง" data-en="Lak Mueang Room">ห้องหลักเมือง</span>
+                <span class="font-bold text-brand-600 text-[11px]" data-th="ชั้น 3" data-en="Fl. 3">ชั้น 3</span>
+              </div>
+              <div class="flex items-center justify-between p-1.5 rounded-lg bg-stone-50 border border-stone-100">
+                <span data-th="ห้องกลางเมือง" data-en="Klang Mueang Room">ห้องกลางเมือง</span>
+                <span class="font-bold text-brand-600 text-[11px]" data-th="ชั้น 1" data-en="Fl. 1">ชั้น 1</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-4 border-t border-stone-100 flex items-center justify-between z-10">
+            <span class="text-xs text-stone-400 font-medium" data-th="ความจุ" data-en="Capacity">ความจุ</span>
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-violet-50 text-violet-700 text-xs font-semibold border border-violet-200/50">
+              <span class="w-1.5 h-1.5 rounded-full bg-violet-500"></span>
+              <span>30 - 500 ท่าน</span>
+            </span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 8. CONTACT US & 9. REVIEW SECTION          -->
+    <!-- ========================================== -->
+    <section id="contact" class="py-16 sm:py-24 bg-stone-100/70 border-t border-stone-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+          
+          <!-- Contact Card -->
+          <div class="lg:col-span-5 bg-white rounded-3xl p-8 border border-stone-200 shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="inline-flex items-center gap-1.5 text-brand-600 font-semibold text-xs sm:text-sm uppercase tracking-wider mb-2">
+                <i data-lucide="phone-call" class="w-4 h-4"></i>
+                <span data-th="ติดต่อเรา" data-en="Contact Us">ติดต่อเรา</span>
+              </div>
+              <h2 class="text-2xl sm:text-3xl font-bold text-stone-900 mb-4" data-th="ยินดีให้บริการและสอบถามข้อมูล" data-en="Get in Touch With Us">
+                ยินดีให้บริการและสอบถามข้อมูล
+              </h2>
+              <p class="text-sm text-stone-600 mb-6 thai-word-break"
+                 data-th="ต้องการสอบถามเส้นทาง แนะนำสถานที่ท่องเที่ยว หรือสำรองห้องพัก สามารถติดต่อทีมงานได้โดยตรง"
+                 data-en="For tourist inquiries, route assistance, or hotel reservations, feel free to connect with our local team.">
+                ต้องการสอบถามเส้นทาง แนะนำสถานที่ท่องเที่ยว หรือสำรองห้องพัก สามารถติดต่อทีมงานได้โดยตรง
+              </p>
+
+              <div class="space-y-4 mb-8">
+                <div class="flex items-center gap-4 p-4 rounded-2xl bg-stone-50 border border-stone-100">
+                  <div class="w-12 h-12 rounded-2xl bg-brand-100/80 text-brand-600 flex items-center justify-center shrink-0">
+                    <i data-lucide="phone" class="w-5 h-5"></i>
+                  </div>
+                  <div>
+                    <div class="text-xs text-stone-500 font-medium" data-th="เบอร์โทรศัพท์" data-en="Telephone">เบอร์โทรศัพท์</div>
+                    <a href="tel:08339010571" class="text-base font-bold text-stone-900 hover:text-brand-600">083-390-10571</a>
+                  </div>
+                </div>
+
+                <div class="flex items-center gap-4 p-4 rounded-2xl bg-stone-50 border border-stone-100">
+                  <div class="w-12 h-12 rounded-2xl bg-emerald-100/80 text-emerald-600 flex items-center justify-center shrink-0">
+                    <i data-lucide="message-circle" class="w-5 h-5"></i>
+                  </div>
+                  <div>
+                    <div class="text-xs text-stone-500 font-medium">LINE Official</div>
+                    <a href="https://lin.ee/zeaaTI9" target="_blank" rel="noopener noreferrer" class="text-base font-bold text-emerald-600 hover:underline">
+                      @CHAROEN (Add LINE)
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <a href="tel:08339010571" class="w-full py-3.5 px-4 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-medium text-sm text-center flex items-center justify-center gap-2 shadow-md shadow-brand-600/20 transition-all">
+                <i data-lucide="phone" class="w-4 h-4"></i>
+                <span data-th="โทรหาเรา" data-en="Call Us">โทรหาเรา</span>
+              </a>
+              <a href="https://lin.ee/zeaaTI9" target="_blank" rel="noopener noreferrer" class="w-full py-3.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-sm text-center flex items-center justify-center gap-2 shadow-md shadow-emerald-600/20 transition-all">
+                <i data-lucide="message-circle" class="w-4 h-4"></i>
+                <span data-th="ติดต่อผ่าน LINE" data-en="Contact via LINE">ติดต่อผ่าน LINE</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Rating Form -->
+          <div class="lg:col-span-7 bg-white rounded-3xl p-8 border border-stone-200 shadow-sm">
+            <div class="inline-flex items-center gap-1.5 text-brand-600 font-semibold text-xs sm:text-sm uppercase tracking-wider mb-2">
+              <i data-lucide="star" class="w-4 h-4"></i>
+              <span data-th="ให้คะแนนและคำแนะนำ" data-en="Review & Feedback">ให้คะแนนและคำแนะนำ</span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-bold text-stone-900 mb-2" data-th="แบ่งปันความประทับใจของคุณ" data-en="Share Your Experience">
+              แบ่งปันความประทับใจของคุณ
+            </h2>
+            <p class="text-sm text-stone-600 mb-6"
+               data-th="ความเห็นของคุณมีคุณค่า ช่วยให้เราพัฒนาบริการแนะนำการท่องเที่ยวขอนแก่นให้ดียิ่งขึ้น"
+               data-en="Your feedback helps us provide better tourist guides and hospitality in Khon Kaen.">
+              ความเห็นของคุณมีคุณค่า ช่วยให้เราพัฒนาบริการแนะนำการท่องเที่ยวขอนแก่นให้ดียิ่งขึ้น
+            </p>
+
+            <form id="review-form" onsubmit="handleReviewSubmit(event)" class="space-y-6">
+              <div>
+                <label class="block text-sm font-medium text-stone-700 mb-2" data-th="ระดับความพึงพอใจ (1-5 ดาว)" data-en="Satisfaction Rating (1-5 Stars)">
+                  ระดับความพึงพอใจ (1-5 ดาว)
+                </label>
+                <div class="flex items-center gap-2" id="star-container">
+                  <button type="button" onclick="setRating(1)" class="star-btn p-1 text-stone-300 hover:text-amber-400 transition-colors focus:outline-none" aria-label="1 star">
+                    <i data-lucide="star" class="w-8 h-8 fill-current"></i>
+                  </button>
+                  <button type="button" onclick="setRating(2)" class="star-btn p-1 text-stone-300 hover:text-amber-400 transition-colors focus:outline-none" aria-label="2 stars">
+                    <i data-lucide="star" class="w-8 h-8 fill-current"></i>
+                  </button>
+                  <button type="button" onclick="setRating(3)" class="star-btn p-1 text-stone-300 hover:text-amber-400 transition-colors focus:outline-none" aria-label="3 stars">
+                    <i data-lucide="star" class="w-8 h-8 fill-current"></i>
+                  </button>
+                  <button type="button" onclick="setRating(4)" class="star-btn p-1 text-stone-300 hover:text-amber-400 transition-colors focus:outline-none" aria-label="4 stars">
+                    <i data-lucide="star" class="w-8 h-8 fill-current"></i>
+                  </button>
+                  <button type="button" onclick="setRating(5)" class="star-btn p-1 text-stone-300 hover:text-amber-400 transition-colors focus:outline-none" aria-label="5 stars">
+                    <i data-lucide="star" class="w-8 h-8 fill-current"></i>
+                  </button>
+                  <span id="rating-text" class="ml-3 text-sm font-semibold text-stone-500"></span>
+                </div>
+              </div>
+
+              <div>
+                <label for="review-comment" class="block text-sm font-medium text-stone-700 mb-2" data-th="ข้อความและความคิดเห็น" data-en="Comments & Feedback">
+                  ข้อความและความคิดเห็น
+                </label>
+                <textarea 
+                  id="review-comment" 
+                  rows="4" 
+                  required 
+                  placeholder="เขียนความประทับใจหรือข้อเสนอแนะสำหรับการท่องเที่ยวขอนแก่นที่นี่..." 
+                  class="w-full px-4 py-3 rounded-2xl border border-stone-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-stone-800 placeholder-stone-400 text-sm resize-none transition-all outline-none"
+                ></textarea>
+              </div>
+
+              <div>
+                <button type="submit" class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-semibold text-sm shadow-md shadow-brand-600/20 flex items-center justify-center gap-2 transition-all">
+                  <i data-lucide="send" class="w-4 h-4"></i>
+                  <span data-th="ส่งความคิดเห็น" data-en="Submit Review">ส่งความคิดเห็น</span>
+                </button>
+                <p class="text-xs text-stone-400 mt-2" data-th="* ข้อความจะถูกส่งตรงไปยัง chanbankx2077@gmail.com" data-en="* Feedback is directly addressed to chanbankx2077@gmail.com">
+                  * ข้อความจะถูกส่งตรงไปยัง chanbankx2077@gmail.com
+                </p>
+              </div>
+            </form>
+
+            <div id="review-success" class="hidden mt-4 p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm flex items-center gap-3">
+              <i data-lucide="check-circle" class="w-5 h-5 text-emerald-600 shrink-0"></i>
+              <span data-th="ขอบพระคุณสำหรับความคิดเห็น ระบบกำลังเปิดโปรแกรมอีเมลเพื่อส่งข้อมูล" data-en="Thank you for your feedback! Opening email client to deliver your review.">
+                ขอบพระคุณสำหรับความคิดเห็น ระบบกำลังเปิดโปรแกรมอีเมลเพื่อส่งข้อมูล
+              </span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- ========================================== -->
+  <!-- 10. FOOTER                                 -->
+  <!-- ========================================== -->
+  <footer class="bg-stone-900 text-stone-300 pt-16 pb-12 border-t border-stone-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-stone-800">
+        
+        <div class="space-y-4 lg:col-span-2">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-brand-600 flex items-center justify-center text-white font-bold text-base">
+              CK
+            </div>
+            <span class="text-xl font-bold tracking-tight text-white">CHAROENTHANI Khon Kaen</span>
+          </div>
+          <p class="text-stone-400 text-sm leading-relaxed max-w-md thai-word-break"
+             data-th="เที่ยวขอนแก่นอย่างสะดวกและน่าประทับใจ เว็บไซต์รวบรวมข้อมูลท่องเที่ยว ร้านอาหาร และสิ่งอำนวยความสะดวกครบจบในที่เดียว"
+             data-en="Travel Khon Kaen with ease and inspiration. Your comprehensive guide to local attractions, dining, and hospitality.">
+            เที่ยวขอนแก่นอย่างสะดวกและน่าประทับใจ / Travel Khon Kaen with ease and inspiration.
+          </p>
+        </div>
+
+        <div>
+          <h3 class="text-white font-semibold text-sm tracking-wider uppercase mb-4" data-th="เมนูลัด" data-en="Quick Links">เมนูลัด</h3>
+          <ul class="space-y-2.5 text-sm">
+            <li><a href="#attractions" class="hover:text-brand-400 transition-colors" data-th="สถานที่ท่องเที่ยว" data-en="Attractions">สถานที่ท่องเที่ยว</a></li>
+            <li><a href="#food" class="hover:text-brand-400 transition-colors" data-th="ร้านอาหารและเครื่องดื่ม" data-en="Food & Drinks">ร้านอาหารและเครื่องดื่ม</a></li>
+            <li><a href="#souvenirs" class="hover:text-brand-400 transition-colors" data-th="ของฝาก" data-en="Souvenirs">ของฝาก</a></li>
+            <li><a href="#hotel-facilities" class="hover:text-brand-400 transition-colors" data-th="สิ่งอำนวยความสะดวกในโรงแรม" data-en="Hotel Facilities">สิ่งอำนวยความสะดวกในโรงแรม</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="text-white font-semibold text-sm tracking-wider uppercase mb-4" data-th="ติดต่อ" data-en="Contact">ติดต่อ</h3>
+          <ul class="space-y-2.5 text-sm text-stone-400">
+            <li class="flex items-center gap-2">
+              <i data-lucide="phone" class="w-4 h-4 text-brand-500"></i>
+              <span>083-390-10571</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <i data-lucide="mail" class="w-4 h-4 text-brand-500"></i>
+              <span>chanbankx2077@gmail.com</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <i data-lucide="map-pin" class="w-4 h-4 text-brand-500"></i>
+              <span data-th="อ.เมือง จ.ขอนแก่น" data-en="Mueang, Khon Kaen, Thailand">อ.เมือง จ.ขอนแก่น</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-500">
+        <p>Copyright &copy; 2026 CHAROENTHANI Khon Kaen. All rights reserved.</p>
+        
+        <button onclick="window.scrollTo({ top: 0, behavior: 'smooth' })" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-stone-800 hover:bg-stone-700 text-stone-300 hover:text-white transition-all text-xs">
+          <i data-lucide="arrow-up" class="w-3.5 h-3.5"></i>
+          <span data-th="กลับขึ้นด้านบน" data-en="Back to Top">กลับขึ้นด้านบน</span>
+        </button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================================== -->
+  <!-- JAVASCRIPT & DATA                          -->
+  <!-- ========================================== -->
+  <script>
+    let currentLang = 'th';
+    let currentRating = 0;
+    let currentFoodTab = 'breakfast';
+    let currentIntlFilter = 'all';
+
+    function getDirectImageUrl(driveUrl) {
+      if (!driveUrl) return `https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=800&q=80`;
+      const match = driveUrl.match(/\/d\/([a-zA-Z0-9_-]+)/);
+      if (match && match[1]) {
+        return `https://lh3.googleusercontent.com/d/${match[1]}`;
+      }
+      return driveUrl;
+    }
+
+    const attractionsData = [
+      {
+        id: 1,
+        nameTh: "พระธาตุขามแก่น",
+        nameEn: "Phra That Kham Kaen",
+        descTh: "พระธาตุสำคัญคู่เมืองขอนแก่น ตั้งอยู่บริเวณวัดเจติยภูมิ อำเภอน้ำพอง เหมาะสำหรับผู้ที่ต้องการสักการะ เรียนรู้วัฒนธรรม และสัมผัสบรรยากาศอันสงบงดงาม",
+        descEn: "An important sacred pagoda of Khon Kaen, located at Wat Chetiyaphum in Nam Phong District. It is ideal for visitors seeking cultural experiences, peaceful surroundings, and spiritual reflection.",
+        driveImage: "https://drive.google.com/file/d/1TIinFg6ojVSmzrlhrWGnJY43EYVXKjVO/view?usp=drivesdk",
+        mapUrl: "https://maps.app.goo.gl/D75UZfNXSFjBQZQQ8"
+      },
+      {
+        id: 2,
+        nameTh: "วัดหนองแวง พระอารามหลวง",
+        nameEn: "Wat Nong Waeng Royal Monastery",
+        descTh: "วัดเก่าแก่ริมบึงแก่นนคร โดดเด่นด้วยพระมหาธาตุแก่นนคร 9 ชั้น ซึ่งเป็นจุดชมวิวและสถาปัตยกรรมสำคัญของเมืองขอนแก่น",
+        descEn: "A historic temple by Bueng Kaen Nakhon, renowned for the nine-storey Phra Mahathat Kaen Nakhon, an important architectural landmark and viewpoint in Khon Kaen.",
+        driveImage: "https://drive.google.com/file/d/1Qltblgu9DZGXWDQ2-PmoZtOBnCzBkbAx/view?usp=sharing",
+        mapUrl: "https://maps.app.goo.gl/V4qEP2fprb3BZJ5fA"
+      },
+      {
+        id: 3,
+        nameTh: "บึงแก่นนคร",
+        nameEn: "Bueng Kaen Nakhon",
+        descTh: "บึงน้ำธรรมชาติขนาดใหญ่ใจกลางเมืองขอนแก่น เหมาะสำหรับเดินเล่น ออกกำลังกาย ปั่นจักรยาน ชมวิว และพักผ่อนในช่วงเย็น",
+        descEn: "A large natural lake in the heart of Khon Kaen, perfect for walking, jogging, cycling, sightseeing, and relaxing during the evening.",
+        driveImage: "https://drive.google.com/file/d/1AT6nKJh81qFhcT9pVazurHn_FsNoIG7M/view?usp=sharing",
+        mapUrl: "https://maps.app.goo.gl/kzWBePBRVQervAoeA"
+      },
+      {
+        id: 4,
+        nameTh: "พิพิธภัณฑ์ไดโนเสาร์ภูเวียง",
+        nameEn: "Phu Wiang Dinosaur Museum",
+        descTh: "แหล่งเรียนรู้ด้านธรณีวิทยาและไดโนเสาร์ที่จัดแสดงฟอสซิล โครงกระดูก และเรื่องราวการค้นพบไดโนเสาร์ในพื้นที่ภูเวียง",
+        descEn: "A geological and dinosaur learning center featuring fossils, dinosaur skeletons, and discoveries from the Phu Wiang area.",
+        driveImage: "https://drive.google.com/file/d/1cs_q1QaLz4B3bH4UYuOWnsOoZwV6iqCx/view?usp=sharing",
+        mapUrl: "https://maps.app.goo.gl/iU3MNMvcK5zAnuK97"
+      },
+      {
+        id: 5,
+        nameTh: "เขื่อนอุบลรัตน์",
+        nameEn: "Ubolratana Dam",
+        descTh: "เขื่อนขนาดใหญ่ที่มีทัศนียภาพสวยงาม เหมาะกับการชมวิว ถ่ายภาพ พักผ่อน และรับประทานอาหารริมอ่างเก็บน้ำ",
+        descEn: "A scenic dam and reservoir area ideal for sightseeing, photography, relaxing, and enjoying lakeside dining.",
+        driveImage: "https://drive.google.com/file/d/1UqIBygkPKIR-vr1B-De3a2bd-u5bfRJ4/view?usp=sharing",
+        mapUrl: "https://maps.app.goo.gl/sywSDs1k8jeaSCF27"
+      },
+      {
+        id: 6,
+        nameTh: "สวนสัตว์ขอนแก่น",
+        nameEn: "Khon Kaen Zoo",
+        descTh: "สถานที่ท่องเที่ยวสำหรับครอบครัว พบกับสัตว์หลากหลายชนิดและกิจกรรมเพื่อการเรียนรู้ในบรรยากาศธรรมชาติ",
+        descEn: "A family-friendly attraction where visitors can see a variety of animals and enjoy educational activities in a natural setting.",
+        driveImage: "https://drive.google.com/file/d/1vxzX2GF9o31D01ex8R6XfiMYy6iKPVil/view?usp=sharing",
+        mapUrl: "https://maps.app.goo.gl/nDDgj2UBLB4Nk8oYA"
+      },
+      {
+        id: 7,
+        nameTh: "ภูผาม่าน",
+        nameEn: "Phu Pha Man",
+        descTh: "พื้นที่ธรรมชาติที่โดดเด่นด้วยภูเขาหินปูน วิวสวย และบรรยากาศเงียบสงบ เหมาะกับผู้รักการถ่ายภาพและการท่องเที่ยวเชิงธรรมชาติ",
+        descEn: "A natural destination known for limestone mountains, beautiful views, and peaceful surroundings, ideal for nature lovers and photographers.",
+        driveImage: "https://drive.google.com/file/d/1WuiCU6tnqpZ6Hbn9GlGOWN3epgYFRMAA/view?usp=drive_link",
+        mapUrl: "https://maps.app.goo.gl/WVcvnMwWM61TP5kQ8"
+      },
+      {
+        id: 8,
+        nameTh: "หินช้างสี",
+        nameEn: "Hin Chang Si",
+        descTh: "จุดชมวิวธรรมชาติที่มีโขดหินรูปร่างโดดเด่น สามารถชมทิวทัศน์ของเขื่อนอุบลรัตน์และพื้นที่โดยรอบได้อย่างสวยงาม",
+        descEn: "A scenic natural viewpoint with distinctive rock formations overlooking Ubolratana Dam and the surrounding landscape.",
+        driveImage: "https://drive.google.com/file/d/12Nbe1BBCp1V9R9OogKcijcsuV5TKqM1B/view?usp=drive_link",
+        mapUrl: "https://maps.app.goo.gl/21pG6VxeqQwMmDxj9"
+      },
+      {
+        id: 9,
+        nameTh: "ตลาดต้นตาล",
+        nameEn: "Ton Tann Market",
+        descTh: "ตลาดไลฟ์สไตล์ยามเย็นของขอนแก่น รวมอาหาร เครื่องดื่ม เสื้อผ้า ของใช้ และพื้นที่นั่งพักผ่อน",
+        descEn: "A lively evening lifestyle market offering food, drinks, clothing, local products, and relaxing hangout spaces.",
+        driveImage: "https://drive.google.com/file/d/1YgIszRPHe9rGd0Hk1hI3Id7d6sEejcUA/view?usp=sharing",
+        mapUrl: "https://maps.app.goo.gl/WCSi8sS1EtQkcSTx9"
+      },
+      {
+        id: 10,
+        nameTh: "ตลาด 62 บล็อก",
+        nameEn: "62 Block Market",
+        descTh: "ตลาดนัดบรรยากาศคึกคัก เหมาะสำหรับเดินเลือกซื้ออาหาร ของกินเล่น เสื้อผ้า และสินค้าท้องถิ่น",
+        descEn: "A vibrant local market where visitors can explore street food, snacks, clothing, and local products.",
+        driveImage: "https://drive.google.com/file/d/1x5wFILZYkwekzzfeVpHDdTO4B4delpvZ/view?usp=sharing",
+        mapUrl: "https://maps.app.goo.gl/MyBNBJ7dUUVES8j78"
+      }
+    ];
+
+    const foodData = {
+      breakfast: [
+        {
+          nameTh: "เฮง",
+          nameEn: "Heng Breakfast",
+          descTh: "ร้านอาหารเช้าในตำนานเมืองขอนแก่น เสิร์ฟไข่กระทะทรงเครื่องร้อนๆ ขนมปังญวนสอดไส้ และเครื่องดื่มยามเช้า",
+          descEn: "A legendary Khon Kaen morning spot serving savory pan-fried eggs, stuffed Vietnamese bread, and classic coffee.",
+          driveImage: "https://drive.google.com/file/d/1pQdhC8FlDHxdquSMplptgjQ0D4OhGvD6/view?usp=sharing",
+          mapUrl: "https://maps.app.goo.gl/AC9PSoKJjXhKdwP88"
+        },
+        {
+          nameTh: "เอมโอช",
+          nameEn: "Em-Och",
+          descTh: "ร้านอาหารเช้าชื่อดังขวัญใจคนท้องถิ่นและนักเดินทาง โดดเด่นด้วยไข่กระทะ ข้าวเปียกเส้น และหมูยอเนื้อแน่น",
+          descEn: "Famed breakfast parlor celebrated for tender pork rolls, Vietnamese noodle soup, and traditional pan-fried eggs.",
+          driveImage: "https://drive.google.com/file/d/1sIz6YgfmrDqjbuzoo-aLsz3ObJGa8fVW/view?usp=sharing",
+          mapUrl: "https://maps.app.goo.gl/rUhVDsgx7DcyKY24A"
+        },
+        {
+          nameTh: "มาร์",
+          nameEn: "MAR Breakfast & Brunch",
+          descTh: "ร้านอาหารเช้าและบรันช์บรรยากาศสบายๆ ให้คุณเริ่มต้นวันใหม่ด้วยเมนูปรุงสดใหม่หลากหลาย",
+          descEn: "Cozy morning brunch and breakfast haven offering freshly prepared comfort dishes and friendly hospitality.",
+          driveImage: "https://drive.google.com/file/d/1Ul0qK74JR4c8RlyQjEOCqANhWr1o5yl_/view?usp=sharing",
+          mapUrl: "https://maps.app.goo.gl/4Yzp9erFsrsVkgFs9"
+        },
+        {
+          nameTh: "ซุปเปอร์หมู",
+          nameEn: "Super Moo",
+          descTh: "ร้านอาหารเช้าและมื้อสายขึ้นชื่อ เมนูหมูหมักนุ่ม ต้มเลือดหมูร้อนๆ รสชาติกลมกล่อมหอมน้ำซุป",
+          descEn: "Popular morning dining specializing in flavorful pork blood soup, tender pork dishes, and hearty broths.",
+          driveImage: "https://drive.google.com/file/d/1mjeOxKHQ5Xt1vgsdzuwVkO9gS19oaJmr/view?usp=sharing",
+          mapUrl: "https://maps.app.goo.gl/uusCyvGEPuaTmSJu8"
+        }
+      ],
+      recommended: [
+        {
+          nameTh: "สายฝนอาหารตามสั่ง",
+          nameEn: "Sai Fon Made-to-Order",
+          descTh: "ร้านอาหารตามสั่งรสเด็ด ฝีมือจัดจ้าน วัตถุดิบสดใหม่ ให้ปริมาณคุ้มค่า รสชาติต้นตำรับที่ชาวขอนแก่นติดใจ",
+          descEn: "Authentic Thai made-to-order eatery renowned for bold wok flavors, fresh ingredients, and generous portions.",
+          driveImage: "https://drive.google.com/file/d/13lkdVkuJWDJiWjAg6SUdkXecwLb3KITI/view?usp=sharing",
+          mapUrl: "https://maps.app.goo.gl/Sp6t1LpKN6zxwDWv6"
+        },
+        {
+          nameTh: "ก๋วยเตี๋ยวสามเวลา",
+          nameEn: "Sam Wela Noodle",
+          descTh: "ร้านก๋วยเตี๋ยวรสเด็ดน้ำซุปหอมเข้มข้น อร่อยได้ทุกช่วงเวลา เครื่องแน่นทั้งหมูสดและหมูตุ๋น",
+          descEn: "Flavorful noodle house featuring slow-simmered savory broth, tender stewed pork, and springy noodles all day long.",
+          driveImage: "https://drive.google.com/file/d/1mCkKSRQns3Ed0Z_zSRQzugQU7Oyv9C5_/view?usp=sharing",
+          mapUrl: "https://maps.app.goo.gl/DoKzjNBjss4qBkYt9"
+        },
+        {
+          nameTh: "พร้อมซด ชาบูหม่าล่า",
+          nameEn: "Prom Sod Shabu Mala",
+          descTh: "ชาบูหม่าล่ารสชาติเผ็ดชาเข้มข้น น้ำซุปสูตรพิเศษ พร้อมวัตถุดิบคุณภาพดีหลากหลายให้เลือกจุใจ",
+          descEn: "Spicy and aromatic Sichuan mala hotpot eatery with an extensive selection of fresh meats, veggies, and savory broths.",
+          driveImage: "https://drive.google.com/file/d/1MKyHRihO14TfHkSjWf9KG3ebjyxfV9S8/view?usp=sharing",
+          mapUrl: "https://maps.app.goo.gl/bxLsa3y17C83m5Yd6"
+        },
+        {
+          nameTh: "สุไบดะห์ (ฮาลาล)",
+          nameEn: "Zubaidah Halal Restaurant",
+          descTh: "ร้านอาหารอิสลามฮาลาลแท้ เสิร์ฟข้าวหมกไก่หอมเครื่องเทศ ซุปหางวัวรสแซ่บ และอาหารฮาลาลสะอาดถูกหลักการ",
+          descEn: "Certified halal dining offering fragrant saffron biryani, zesty oxtail soup, and traditional culinary classics.",
+          driveImage: "https://drive.google.com/file/d/1tJAYBMa09PGw9IJIkH5I11rtxiVF4EVa/view?usp=sharing",
+          mapUrl: "https://maps.app.goo.gl/bhCfxR2YkGkQKt29A"
+        },
+        {
+          nameTh: "REAL VEGAN (มังสวิรัติ)",
+          nameEn: "REAL VEGAN Restaurant",
+          descTh: "ร้านอาหารมังสวิรัติและวีแกนเพื่อสุขภาพ รังสรรค์เมนูจากพืช 100% รสชาติอร่อยกลมกล่อม ไม่จำเจ",
+          descEn: "Nutritious and delicious 100% plant-based and vegan creations crafted from fresh, whole foods.",
+          driveImage: "https://drive.google.com/file/d/1Vn6JIXKuSZ5FLTD4xU17CcDq4QevjG1d/view?usp=sharing",
+          mapUrl: "https://maps.app.goo.gl/G2HuRDHsEnQWi3Ct8"
+        }
+      ],
+      international: [
+        {
+          cuisine: "chinese",
+          cuisineLabelTh: "จีน",
+          cuisineLabelEn: "Chinese",
+          nameTh: "เติมเต็มติ่มซำ",
+          nameEn: "Term Tem Dim Sum",
+          descTh: "ติ่มซำนึ่งสดคำโต ซาลาเปาแป้งนุ่ม และของทอดสไตล์กวางตุ้งรสชาติต้นตำรับแท้",
+          descEn: "Freshly steamed artisanal dim sum, fluffy stuffed buns, and classic Cantonese delicacies.",
+          driveImage: "https://drive.google.com/file/d/1ufRZ7V37xn6rjYs1aPcqsybbiB18ldiR/view?usp=sharing",
+          mapUrl: "https://maps.app.goo.gl/AnNjz4PzjSx98e637"
+        },
+        {
+          cuisine: "italian",
+          cuisineLabelTh: "อิตาลี",
+          cuisineLabelEn: "Italian",
+          nameTh: "POMODORO",
+          nameEn: "POMODORO Italian Restaurant",
+          descTh: "พิซซ่าเตาฟืน แป้งหอมกรอบนอกนุ่มใน และพาสต้าโฮมเมดสไตล์อิตาเลียนแท้ๆ",
+          descEn: "Wood-fired artisanal pizzas with crispy crusts and authentic homemade Italian pasta recipes.",
+          driveImage: "https://drive.google.com/file/d/1rvts7A2HmXFrAPhwgd7YhUEzuPvxPfzM/view?usp=sharing",
+          mapUrl: "https://maps.app.goo.gl/GoU9b7jWGSorVpKF7"
+        },
+        {
+          cuisine: "indian",
+          cuisineLabelTh: "อินเดีย",
+          cuisineLabelEn: "Indian",
+          nameTh: "BOMBAY INDIAN CUISINE",
+          nameEn: "BOMBAY INDIAN CUISINE",
+          descTh: "แกงอินเดียรสเข้มข้นหอมเครื่องเทศต้นตำรับ แป้งนานอบร้อน และเมนูทันดูรีย่างถ่าน",
+          descEn: "Fragrant, rich North and South Indian curries, tandoori specialties, and freshly baked garlic naans.",
+          driveImage: "https://drive.google.com/file/d/1D4Un1xRPwmGqJLoB_h2dJSUX2rx3VLyw/view?usp=sharing",
+          mapUrl: "https://maps.app.goo.gl/jNAog6b136aFEQxYA"
+        },
+        {
+          cuisine: "korean",
+          cuisineLabelTh: "เกาหลี",
+          cuisineLabelEn: "Korean",
+          nameTh: "WANG KOREAN BBQ",
+          nameEn: "WANG KOREAN BBQ",
+          descTh: "ปิ้งย่างเกาหลีพรีเมียม หมูสามชั้นหมักซอสสูตรเข้มข้น และเครื่องเคียงเกาหลีแท้ไม่อั้น",
+          descEn: "Authentic Korean BBQ experience with premium marinated cuts and bottomless traditional side dishes.",
+          driveImage: "https://drive.google.com/file/d/1wwH_iiXH_weHVSCxb9UL-yHFLTOYVDOE/view?usp=sharing",
+          mapUrl: "https://maps.app.goo.gl/jVw6M5x4ZJH9p31Q6"
+        },
+        {
+          cuisine: "vietnamese",
+          cuisineLabelTh: "เวียดนาม",
+          cuisineLabelEn: "Vietnamese",
+          nameTh: "ฮาลองเบย์",
+          nameEn: "Halong Bay Vietnamese",
+          descTh: "แหนมเนืองชุดใหญ่ ผักสดสะอาด เฝอร้อนๆ และอาหารเวียดนามรสชาติกลมกล่อม",
+          descEn: "Signature Vietnamese Nam Nueng platters, aromatic Pho noodles, and crisp spring rolls.",
+          driveImage: "https://drive.google.com/file/d/1gO2r85hiycWf5fZHeOnNLZBIQmVCxmFv/view?usp=sharing",
+          mapUrl: "https://maps.app.goo.gl/rzATSj23ZJH958gi7"
+        },
+        {
+          cuisine: "japanese",
+          cuisineLabelTh: "ญี่ปุ่น",
+          cuisineLabelEn: "Japanese",
+          nameTh: "Hanzo izakaya",
+          nameEn: "Hanzo Izakaya",
+          descTh: "บรรยากาศอิซากายะญี่ปุ่นแท้ๆ เมนูเสียบไม้ย่างหอมถ่าน ซาชิมิสดใหม่ เหมาะสำหรับสังสรรค์",
+          descEn: "Japanese Izakaya pub offering savory charcoal skewers, fresh sashimi, and relaxing evening drinks.",
+          driveImage: "https://drive.google.com/file/d/1LGmer85n1rUcTrXEN1DP--BWxczTcrdo/view?usp=sharing",
+          mapUrl: "https://maps.app.goo.gl/WMEANgfs4LP2vNp88"
+        },
+        {
+          cuisine: "japanese",
+          cuisineLabelTh: "ญี่ปุ่น",
+          cuisineLabelEn: "Japanese",
+          nameTh: "Katsu curry",
+          nameEn: "Katsu Curry",
+          descTh: "ข้าวแกงกะหรี่ญี่ปุ่นเคี่ยวเข้มข้น ท็อปปิ้งทงคัตสึหมูทอดกรอบสีทองอร่อยลงตัว",
+          descEn: "Hearty Japanese curry simmered to perfection, served with golden-crisp tonkatsu pork cutlets.",
+          driveImage: "https://drive.google.com/file/d/1eWrwiwG7Uev0Su7cs5TgW91-YNbmPHz8/view?usp=sharing",
+          mapUrl: "https://maps.app.goo.gl/GVpr9D8SLV9LEfS57"
+        },
+        {
+          cuisine: "thai",
+          cuisineLabelTh: "ไทย",
+          cuisineLabelEn: "Thai",
+          nameTh: "บ้านเกสร",
+          nameEn: "Baan Kesorn Thai Cuisine",
+          descTh: "อาหารไทยโบราณและอาหารพื้นบ้านรสประณีต ในบรรยากาศเรือนไทยร่มรื่นมีเอกลักษณ์",
+          descEn: "Refined traditional Thai and northeastern culinary heritage served inside a tranquil garden estate.",
+          driveImage: "https://drive.google.com/file/d/1Sv7iQuCbTTfy5dG00xEfWx_3t1AAZRb1/view?usp=sharing",
+          mapUrl: "https://maps.app.goo.gl/mBp1J7FXucDhEKNT7"
+        }
+      ],
+      cafes: [
+        {
+          nameTh: "NEIGHBOUR CAFE",
+          nameEn: "NEIGHBOUR CAFE",
+          descTh: "คาเฟ่บรรยากาศอบอุ่น ตกแต่งสไตล์มินิมอล กาแฟ Specialty หลากหลายและเบเกอรี่โฮมเมด",
+          descEn: "A cozy neighborhood café with minimalist aesthetic, specialty coffee brews, and homemade pastries.",
+          driveImage: "https://drive.google.com/file/d/1HauYXoPONF1II_zgSA7KMJbYhm_YIh_R/view?usp=sharing",
+          mapUrl: "https://maps.app.goo.gl/39DqiTYLnG5Yonug8"
+        },
+        {
+          nameTh: "MACO.KK",
+          nameEn: "MACO.KK",
+          descTh: "คาเฟ่โมเดิร์นสุดชิค มุมถ่ายรูปสวย กาแฟรสชาติดี และเครื่องดื่มซิกเนเจอร์ชวนลิ้มลอง",
+          descEn: "Chic contemporary cafe with aesthetic photography angles, quality roast coffee, and signature mixes.",
+          driveImage: "https://drive.google.com/file/d/19gFJqAcusuIVx8vd7cAKFttIQrwqgR2y/view?usp=sharing",
+          mapUrl: "https://maps.app.goo.gl/dPcCu2XrcH5AY14m9"
+        },
+        {
+          nameTh: "HARMONI.KKC",
+          nameEn: "HARMONI.KKC",
+          descTh: "คาเฟ่สไตล์โฮมมี่ เงียบสงบ เหมาะสำหรับนั่งทำงาน อ่านหนังสือ พร้อมเครื่องดื่มและของหวาน",
+          descEn: "Tranquil homey coffee lounge ideal for relaxed remote working, reading, and artisanal cakes.",
+          driveImage: "https://drive.google.com/file/d/1z2gkTUpIpnagg-LKzf3tyQxPmnRo2Nz-/view?usp=sharing",
+          mapUrl: "https://maps.app.goo.gl/Bm3q7UXuQ87cSBsR6"
+        },
+        {
+          nameTh: "คลังนานาวิทยา",
+          nameEn: "Klang Nana Witthaya",
+          descTh: "พื้นที่ผสมผสานระหว่างร้านหนังสือ คาเฟ่ และบรรยากาศสุดคลาสสิกใจกลางเมือง",
+          descEn: "A creative cultural coffee haven uniting vintage bookstores, quiet reading nooks, and fine drinks.",
+          driveImage: "https://drive.google.com/file/d/1b3-7jXy7Hy1WgfCRThSdFXNRvCt9Ka99/view?usp=sharing",
+          mapUrl: "https://maps.app.goo.gl/yZAJLWAGnwaKYQnZ8"
+        },
+        {
+          nameTh: "YUCHA MATCHA CAFE",
+          nameEn: "YUCHA MATCHA CAFE",
+          descTh: "สวรรค์ของคนรักมัทฉะ ชาเขียวเกรดพิธีการนำเข้าจากญี่ปุ่น ชงสดใหม่แก้วต่อแก้ว",
+          descEn: "Paradise for matcha lovers serving ceremonial-grade Japanese green tea and traditional matcha sweets.",
+          driveImage: "https://drive.google.com/file/d/1T6jGBk05tUFo9j2P-J6Sews1JLXsx3Kn/view?usp=sharing",
+          mapUrl: "https://maps.app.goo.gl/RQMHSGvXMnB8wWsQ7"
+        }
+      ]
+    };
+
+    const souvenirsData = [
+      {
+        nameTh: "อื้อเกียเฮียง",
+        nameEn: "Uea Kia Hiang",
+        descTh: "ร้านของฝากเก่าแก่ชื่อดัง กุนเชียง หมูหยอง หมูแผ่นสูตรดั้งเดิม คุณภาพพรีเมียม",
+        descEn: "Renowned heritage souvenir store celebrated for premium Chinese sausages, crispy pork, and shredded pork.",
+        driveImage: "https://drive.google.com/file/d/1f2URoYMi1CH_dkNbPkfAkyWWbWHKXNOW/view?usp=sharing",
+        mapUrl: "https://maps.app.goo.gl/vsDxur7ud145SZJTA"
+      },
+      {
+        nameTh: "ร้านตั้งฮะเฮียง ของฝาก",
+        nameEn: "Tang Ha Hiang Souvenirs",
+        descTh: "แหล่งรวมของฝากยอดนิยม หมูยอ กุนเชียง ขนมขบเคี้ยว และสินค้าพื้นเมืองขอนแก่นครบครัน",
+        descEn: "Longstanding local gift shop offering premium pork sausages, local snacks, and northeastern specialties.",
+        driveImage: "https://drive.google.com/file/d/1Bp6rDe0nlQHMomFCm98Al2UJn4dNl9Sw/view?usp=sharing",
+        mapUrl: "https://maps.app.goo.gl/ffp4P3AN8BWsicBE6"
+      },
+      {
+        nameTh: "ร้านล่องใต้",
+        nameEn: "Long Tai Souvenirs",
+        descTh: "ร้านของฝากและสินค้าแปรรูปคุณภาพดี มีสินค้าคัดสรรหลากหลายเหมาะสำหรับซื้อเป็นของขวัญ",
+        descEn: "Curated souvenir destination offering a wide selection of quality processed foods and regional gifts.",
+        driveImage: "https://drive.google.com/file/d/1e3mBKCJb4CsILj3ZP-2JwkmaJ__Od11K/view?usp=sharing",
+        mapUrl: "https://maps.app.goo.gl/u5y8x2fL2GezP5C88"
+      },
+      {
+        nameTh: "ของฝากขอนแก่นร้านแหนมลับแล",
+        nameEn: "Naem Lablae Khon Kaen",
+        descTh: "แหนมเนื้อแน่นรสเด็ด เปรี้ยวกำลังดี สะอาด ถูกหลักอนามัย ของฝากขึ้นชื่อที่ใครมาต้องซื้อ",
+        descEn: "Famous fermented pork (Naem) renowned for its balanced tangy flavor, hygienic preparation, and freshness.",
+        driveImage: "https://drive.google.com/file/d/1SEsXuNtQq6tWP71427J0ZNTSStqsMG8i/view?usp=sharing",
+        mapUrl: "https://maps.app.goo.gl/mZz4mGgmPsAjZ1Yy6"
+      },
+      {
+        nameTh: "เคี้ยง",
+        nameEn: "Kieng Superstore",
+        descTh: "ศูนย์รวมของฝากและสินค้าอุปโภคบริโภคขนาดใหญ่ สะดวกสบาย มีของดีเมืองขอนแก่นครบครัน",
+        descEn: "All-in-one local market and retail hub offering comprehensive selections of regional food, snacks, and souvenirs.",
+        driveImage: "https://drive.google.com/file/d/1G3GJqx0FzAHsEKmgzlYrh-ldsj6PqMu1/view?usp=sharing",
+        mapUrl: "https://maps.app.goo.gl/VzvFyXQ14Ax9W11u5"
+      }
+    ];
+
+    const facilitiesData = [
+      {
+        nameTh: "โรงพยาบาลขอนแก่น",
+        nameEn: "Khon Kaen Hospital",
+        categoryTh: "สถานพยาบาล 24 ชม.",
+        categoryEn: "24h Emergency Care",
+        icon: "heart-pulse",
+        descTh: "โรงพยาบาลศูนย์ขนาดใหญ่ พร้อมทีมแพทย์ผู้เชี่ยวชาญและแผนกฉุกเฉินตลอด 24 ชั่วโมง",
+        descEn: "Major provincial tertiary hospital providing comprehensive medical care and 24-hour emergency room.",
+        driveImage: "https://drive.google.com/file/d/1xEKNpOP--wEFEUexIK0l303id1-K-Wdq/view?usp=sharing",
+        mapUrl: "https://maps.app.goo.gl/LaLCmrhiKqVJzG928"
+      },
+      {
+        nameTh: "ร้านยา หัวมุมเภสัช",
+        nameEn: "Hua Mum Pharmacy",
+        categoryTh: "ร้านขายยาและเวชภัณฑ์",
+        categoryEn: "Pharmacy & Care",
+        icon: "pill",
+        descTh: "ร้านขายยามาตรฐานใจกลางเมือง พร้อมเภสัชกรคอยให้คำแนะนำและการดูแลสุขภาพเบื้องต้น",
+        descEn: "Trusted downtown community pharmacy offering essential pharmaceuticals and health consultations.",
+        driveImage: "https://drive.google.com/file/d/1r7v6obKsFNmvqbgZdw0rYmkFRTVof2dN/view?usp=sharing",
+        mapUrl: "https://maps.app.goo.gl/zmZi3M5vvgNk4hxE6"
+      },
+      {
+        nameTh: "สถานีตำรวจภูธรเมืองขอนแก่น",
+        nameEn: "Mueang Khon Kaen Police Station",
+        categoryTh: "ความปลอดภัย 24 ชม.",
+        categoryEn: "Public Safety 24/7",
+        icon: "shield-check",
+        descTh: "ดูแลความปลอดภัยในชีวิตและทรัพย์สิน พร้อมศูนย์บริการนักท่องเที่ยวตลอด 24 ชั่วโมง",
+        descEn: "Municipal police department offering emergency response and round-the-clock tourist assistance.",
+        driveImage: "https://drive.google.com/file/d/11WfRXiqDS47CVz_qr7ny0ADe7NqdOl4i/view?usp=sharing",
+        mapUrl: "https://maps.app.goo.gl/meyKNiDQPVu2wgJK8"
+      },
+      {
+        nameTh: "ไปรษณีย์จังหวัดขอนแก่น",
+        nameEn: "Khon Kaen Central Post Office",
+        categoryTh: "บริการพัสดุและไปรษณีย์",
+        categoryEn: "Postal & Parcel",
+        icon: "send",
+        descTh: "บริการส่งพัสดุด่วนและของฝากทั่วประเทศ สะดวกรวดเร็ว เชื่อถือได้",
+        descEn: "Central postal branch providing domestic and international express mailing services for gifts and goods.",
+        driveImage: "https://drive.google.com/file/d/1LsiCtErFN2PvdAnzP41eT_7VO6AMFnwj/view?usp=sharing",
+        mapUrl: "https://maps.app.goo.gl/Voo4vccTAF2TgFMG7"
+      }
+    ];
+
+    function createCardHTML(item, badgeText = '', customIcon = null) {
+      const name = currentLang === 'th' ? item.nameTh : item.nameEn;
+      const desc = currentLang === 'th' ? item.descTh : item.descEn;
+      const subName = currentLang === 'th' ? item.nameEn : item.nameTh;
+      const imgUrl = getDirectImageUrl(item.driveImage);
+      const altText = `${item.nameTh} - ${item.nameEn} Khon Kaen`;
+      const mapPrompt = currentLang === 'th' ? 'แตะรูปเพื่อเปิด Google Maps' : 'Tap image to open Google Maps';
+
+      return `
+        <div class="group bg-white rounded-3xl overflow-hidden border border-stone-200/80 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col">
+          <a href="${item.mapUrl}" target="_blank" rel="noopener noreferrer" class="relative block aspect-[16/10] overflow-hidden bg-stone-100 skeleton cursor-pointer" title="${mapPrompt}">
+            <img 
+              src="${imgUrl}" 
+              alt="${altText}" 
+              loading="lazy"
+              class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"
+              onload="this.parentElement.classList.remove('skeleton')"
+              onerror="this.src='https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=800&q=80'; this.parentElement.classList.remove('skeleton')"
+            />
+            
+            <div class="absolute inset-0 bg-stone-950/20 group-hover:bg-stone-950/40 transition-colors duration-300 flex items-center justify-center">
+              <span class="opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300 px-3.5 py-1.5 rounded-full bg-white/95 text-brand-700 text-xs font-semibold shadow-lg backdrop-blur-sm flex items-center gap-1.5">
+                <i data-lucide="map-pin" class="w-3.5 h-3.5 text-brand-600"></i>
+                <span>${mapPrompt}</span>
+              </span>
+            </div>
+
+            ${badgeText ? `
+              <span class="absolute top-3 left-3 px-3 py-1 rounded-full bg-stone-950/75 text-white text-[11px] font-medium backdrop-blur-md flex items-center gap-1.5">
+                ${customIcon ? `<i data-lucide="${customIcon}" class="w-3.5 h-3.5 text-brand-400"></i>` : ''}
+                <span>${badgeText}</span>
+              </span>
+            ` : ''}
+          </a>
+
+          <div class="p-6 flex flex-col flex-grow justify-between">
+            <div>
+              <div class="flex items-start justify-between gap-2 mb-1">
+                <h3 class="text-base sm:text-lg font-bold text-stone-900 leading-snug group-hover:text-brand-600 transition-colors thai-word-break">
+                  ${name}
+                </h3>
+              </div>
+              <p class="text-xs font-medium text-brand-600/90 mb-3">
+                ${subName}
+              </p>
+              <p class="text-xs sm:text-sm text-stone-600 leading-relaxed line-clamp-3 thai-word-break mb-4">
+                ${desc}
+              </p>
+            </div>
+
+            <div class="pt-3 border-t border-stone-100 flex items-center justify-between">
+              <a href="${item.mapUrl}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-semibold text-brand-600 hover:text-brand-700 transition-colors">
+                <i data-lucide="map-pin" class="w-3.5 h-3.5"></i>
+                <span>Google Maps</span>
+              </a>
+              <i data-lucide="external-link" class="w-3.5 h-3.5 text-stone-400"></i>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderAttractions() {
+      const grid = document.getElementById('attractions-grid');
+      grid.innerHTML = attractionsData.map(item => createCardHTML(item)).join('');
+    }
+
+    function renderFood() {
+      const grid = document.getElementById('food-grid');
+      const filterContainer = document.getElementById('intl-filter-chips');
+
+      if (currentFoodTab === 'international') {
+        filterContainer.classList.remove('hidden');
+        filterContainer.classList.add('flex');
+        
+        const cuisines = [
+          { key: 'all', th: 'ทั้งหมด', en: 'All' },
+          { key: 'chinese', th: 'จีน', en: 'Chinese' },
+          { key: 'italian', th: 'อิตาลี', en: 'Italian' },
+          { key: 'indian', th: 'อินเดีย', en: 'Indian' },
+          { key: 'korean', th: 'เกาหลี', en: 'Korean' },
+          { key: 'vietnamese', th: 'เวียดนาม', en: 'Vietnamese' },
+          { key: 'japanese', th: 'ญี่ปุ่น', en: 'Japanese' },
+          { key: 'thai', th: 'ไทย', en: 'Thai' },
+        ];
+
+        filterContainer.innerHTML = cuisines.map(c => `
+          <button onclick="filterIntlCuisine('${c.key}')" class="px-3.5 py-1.5 rounded-full text-xs font-medium transition-all ${
+            currentIntlFilter === c.key 
+              ? 'bg-brand-600 text-white shadow-sm' 
+              : 'bg-white text-stone-600 hover:bg-stone-50 border border-stone-200'
+          }">
+            ${currentLang === 'th' ? c.th : c.en}
+          </button>
+        `).join('');
+
+        const filtered = currentIntlFilter === 'all' 
+          ? foodData.international 
+          : foodData.international.filter(item => item.cuisine === currentIntlFilter);
+
+        grid.innerHTML = filtered.map(item => {
+          const badge = currentLang === 'th' ? item.cuisineLabelTh : item.cuisineLabelEn;
+          return createCardHTML(item, badge);
+        }).join('');
+
+      } else {
+        filterContainer.classList.add('hidden');
+        filterContainer.classList.remove('flex');
+        
+        const items = foodData[currentFoodTab] || [];
+        grid.innerHTML = items.map(item => createCardHTML(item)).join('');
+      }
+
+      lucide.createIcons();
+    }
+
+    function filterIntlCuisine(cuisine) {
+      currentIntlFilter = cuisine;
+      renderFood();
+    }
+
+    function switchFoodTab(tabName) {
+      currentFoodTab = tabName;
+      currentIntlFilter = 'all';
+
+      const tabs = ['breakfast', 'recommended', 'international', 'cafes'];
+      tabs.forEach(t => {
+        const btn = document.getElementById(`tab-${t}`);
+        if (t === tabName) {
+          btn.className = 'food-tab-btn px-4 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all whitespace-nowrap bg-brand-600 text-white shadow-md shadow-brand-600/20';
+          btn.setAttribute('aria-selected', 'true');
+        } else {
+          btn.className = 'food-tab-btn px-4 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all whitespace-nowrap bg-white text-stone-700 hover:bg-stone-50 border border-stone-200';
+          btn.setAttribute('aria-selected', 'false');
+        }
+      });
+
+      renderFood();
+    }
+
+    function renderSouvenirs() {
+      const grid = document.getElementById('souvenirs-grid');
+      grid.innerHTML = souvenirsData.map(item => createCardHTML(item)).join('');
+    }
+
+    function renderFacilities() {
+      const grid = document.getElementById('facilities-grid');
+      grid.innerHTML = facilitiesData.map(item => {
+        const badge = currentLang === 'th' ? item.categoryTh : item.categoryEn;
+        return createCardHTML(item, badge, item.icon);
+      }).join('');
+    }
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      document.documentElement.lang = lang;
+
+      const btnTh = document.getElementById('lang-th');
+      const btnEn = document.getElementById('lang-en');
+      if (lang === 'th') {
+        btnTh.className = 'px-3 py-1.5 rounded-full transition-all duration-200 bg-brand-600 text-white shadow-sm';
+        btnEn.className = 'px-3 py-1.5 rounded-full transition-all duration-200 text-stone-600 hover:text-brand-600';
+      } else {
+        btnEn.className = 'px-3 py-1.5 rounded-full transition-all duration-200 bg-brand-600 text-white shadow-sm';
+        btnTh.className = 'px-3 py-1.5 rounded-full transition-all duration-200 text-stone-600 hover:text-brand-600';
+      }
+
+      document.querySelectorAll('[data-th]').forEach(el => {
+        const text = el.getAttribute(`data-${lang}`);
+        if (text) {
+          el.textContent = text;
+        }
+      });
+
+      const reviewInput = document.getElementById('review-comment');
+      if (reviewInput) {
+        reviewInput.placeholder = lang === 'th'
+          ? 'เขียนความประทับใจหรือข้อเสนอแนะสำหรับการท่องเที่ยวขอนแก่นที่นี่...'
+          : 'Share your feedback, reviews or suggestions regarding Khon Kaen travel...';
+      }
+
+      renderAttractions();
+      renderFood();
+      renderSouvenirs();
+      renderFacilities();
+      lucide.createIcons();
+    }
+
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    }
+    function closeMobileMenu() {
+      document.getElementById('mobile-menu').classList.add('hidden');
+    }
+
+    function setRating(rating) {
+      currentRating = rating;
+      const stars = document.querySelectorAll('.star-btn');
+      const ratingLabel = document.getElementById('rating-text');
+      
+      stars.forEach((btn, index) => {
+        if (index < rating) {
+          btn.classList.remove('text-stone-300');
+          btn.classList.add('text-amber-400');
+        } else {
+          btn.classList.remove('text-amber-400');
+          btn.classList.add('text-stone-300');
+        }
+      });
+
+      if (ratingLabel) {
+        ratingLabel.textContent = `${rating} / 5 ${currentLang === 'th' ? 'ดาว' : 'Stars'}`;
+      }
+    }
+
+    function handleReviewSubmit(e) {
+      e.preventDefault();
+      const comment = document.getElementById('review-comment').value.trim();
+      const ratingScore = currentRating > 0 ? currentRating : 5;
+
+      const subject = encodeURIComponent(`CHAROEN Khon Kaen Review: ${ratingScore} Stars`);
+      const body = encodeURIComponent(
+        `คะแนนความพึงพอใจ: ${ratingScore}/5 ดาว\n\nข้อเสนอแนะ:\n${comment}\n\nภาษาที่ใช้งาน: ${currentLang.toUpperCase()}\nส่งจากเว็บไซต์ CHAROEN Khon Kaen`
+      );
+
+      const successBox = document.getElementById('review-success');
+      successBox.classList.remove('hidden');
+
+      setTimeout(() => {
+        window.location.href = `mailto:chanbankx2077@gmail.com?subject=${subject}&body=${body}`;
+      }, 600);
+
+      document.getElementById('review-form').reset();
+      setRating(0);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderAttractions();
+      renderFood();
+      renderSouvenirs();
+      renderFacilities();
+      lucide.createIcons();
+    });
+  </script>
+</body>
+</html>
