@@ -86,13 +86,13 @@
       <div class="flex items-center justify-between h-20">
         
         <!-- Logo -->
-        <a href="#home" class="flex items-center gap-3 group">
-          <img src="https://lh3.googleusercontent.com/d/1831xLy78imuR7YxDrIlT6PEX9sgTi0Im" alt="CHAROENTHANI Logo" class="h-11 w-auto object-contain drop-shadow-md group-hover:scale-105 transition-transform duration-300" />
+        <a href="#home" class="flex items-center gap-2 sm:gap-3 group shrink-0">
+          <img src="https://lh3.googleusercontent.com/d/1831xLy78imuR7YxDrIlT6PEX9sgTi0Im" alt="CHAROENTHANI Logo" class="h-9 sm:h-11 w-auto object-contain drop-shadow-md group-hover:scale-105 transition-transform duration-300" />
           <div class="flex flex-col">
-            <span class="text-xl sm:text-2xl font-bold tracking-tight text-white leading-none">
+            <span class="text-lg sm:text-xl md:text-2xl font-bold tracking-tight text-white leading-none">
               CHAROENTHANI
             </span>
-            <span class="text-[11px] font-semibold tracking-widest text-brand-400 uppercase mt-0.5">
+            <span class="text-[10px] sm:text-[11px] font-semibold tracking-widest text-brand-400 uppercase mt-0.5">
               Khon Kaen
             </span>
           </div>
@@ -110,15 +110,15 @@
         </nav>
 
         <!-- Right Side: Language Switcher & Hamburger -->
-        <div class="flex items-center gap-3">
+        <div class="flex items-center gap-1 sm:gap-3 shrink-0">
           
           <!-- Single Button Language Toggle -->
-          <button id="lang-toggle" onclick="toggleLanguage()" class="flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-indigoTheme-850 hover:bg-brand-600 border border-indigoTheme-700/80 text-white transition-all duration-300 text-xs font-semibold shadow-sm focus:outline-none" aria-label="Toggle Language">
-            <i data-lucide="globe" class="w-4 h-4"></i>
+          <button id="lang-toggle" onclick="toggleLanguage()" class="flex items-center gap-1 sm:gap-1.5 px-2.5 py-1.5 sm:px-3.5 sm:py-2 rounded-full bg-indigoTheme-850 hover:bg-brand-600 border border-indigoTheme-700/80 text-white transition-all duration-300 text-[11px] sm:text-xs font-semibold shadow-sm focus:outline-none" aria-label="Toggle Language">
+            <i data-lucide="globe" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
             <span id="lang-toggle-text">TH</span>
           </button>
 
-          <button id="menu-btn" onclick="toggleMobileMenu()" class="xl:hidden p-2.5 rounded-xl text-stone-300 hover:text-brand-400 hover:bg-indigoTheme-850 focus:outline-none" aria-label="เปิดเมนูนำทาง">
+          <button id="menu-btn" onclick="toggleMobileMenu()" class="xl:hidden p-1.5 sm:p-2.5 rounded-xl text-stone-300 hover:text-brand-400 hover:bg-indigoTheme-850 focus:outline-none" aria-label="เปิดเมนูนำทาง">
             <i data-lucide="menu" class="w-6 h-6"></i>
           </button>
         </div>
@@ -1345,7 +1345,7 @@
       }).join('');
     }
 
-    // ฟังก์ชันใหม่สำหรับสลับภาษาเมื่อกดปุ่มเดียว
+    // สลับภาษา
     function toggleLanguage() {
       const nextLang = currentLang === 'th' ? 'en' : 'th';
       setLanguage(nextLang);
@@ -1355,7 +1355,6 @@
       currentLang = lang;
       document.documentElement.lang = lang;
 
-      // เปลี่ยนข้อความในปุ่มภาษา
       const langToggleText = document.getElementById('lang-toggle-text');
       if (langToggleText) {
         langToggleText.textContent = lang === 'th' ? 'TH' : 'EN';
