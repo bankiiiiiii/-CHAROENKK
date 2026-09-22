@@ -111,14 +111,12 @@
 
         <!-- Right Side: Language Switcher & Hamburger -->
         <div class="flex items-center gap-3">
-          <div class="flex items-center bg-indigoTheme-850/90 p-1 rounded-full border border-indigoTheme-700/80 text-xs font-semibold" role="group" aria-label="Language selector">
-            <button id="lang-th" onclick="setLanguage('th')" class="px-3 py-1.5 rounded-full transition-all duration-200 bg-brand-600 text-white shadow-sm" aria-label="เปลี่ยนเป็นภาษาไทย">
-              TH
-            </button>
-            <button id="lang-en" onclick="setLanguage('en')" class="px-3 py-1.5 rounded-full transition-all duration-200 text-stone-300 hover:text-brand-400" aria-label="Switch to English">
-              EN
-            </button>
-          </div>
+          
+          <!-- Single Button Language Toggle -->
+          <button id="lang-toggle" onclick="toggleLanguage()" class="flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-indigoTheme-850 hover:bg-brand-600 border border-indigoTheme-700/80 text-white transition-all duration-300 text-xs font-semibold shadow-sm focus:outline-none" aria-label="Toggle Language">
+            <i data-lucide="globe" class="w-4 h-4"></i>
+            <span id="lang-toggle-text">TH</span>
+          </button>
 
           <button id="menu-btn" onclick="toggleMobileMenu()" class="xl:hidden p-2.5 rounded-xl text-stone-300 hover:text-brand-400 hover:bg-indigoTheme-850 focus:outline-none" aria-label="เปิดเมนูนำทาง">
             <i data-lucide="menu" class="w-6 h-6"></i>
@@ -1347,18 +1345,20 @@
       }).join('');
     }
 
+    // ฟังก์ชันใหม่สำหรับสลับภาษาเมื่อกดปุ่มเดียว
+    function toggleLanguage() {
+      const nextLang = currentLang === 'th' ? 'en' : 'th';
+      setLanguage(nextLang);
+    }
+
     function setLanguage(lang) {
       currentLang = lang;
       document.documentElement.lang = lang;
 
-      const btnTh = document.getElementById('lang-th');
-      const btnEn = document.getElementById('lang-en');
-      if (lang === 'th') {
-        btnTh.className = 'px-3 py-1.5 rounded-full transition-all duration-200 bg-brand-600 text-white shadow-sm';
-        btnEn.className = 'px-3 py-1.5 rounded-full transition-all duration-200 text-stone-300 hover:text-brand-400';
-      } else {
-        btnEn.className = 'px-3 py-1.5 rounded-full transition-all duration-200 bg-brand-600 text-white shadow-sm';
-        btnTh.className = 'px-3 py-1.5 rounded-full transition-all duration-200 text-stone-300 hover:text-brand-400';
+      // เปลี่ยนข้อความในปุ่มภาษา
+      const langToggleText = document.getElementById('lang-toggle-text');
+      if (langToggleText) {
+        langToggleText.textContent = lang === 'th' ? 'TH' : 'EN';
       }
 
       document.querySelectorAll('[data-th]').forEach(el => {
@@ -1410,7 +1410,6 @@
       }
     }
 
-    // กำหนด URL ของ Google Apps Script ใหม่ล่าสุด
     const scriptURL = 'https://script.google.com/macros/s/AKfycbypwZSPPCwlRMyTTMZLOlctfEQmKevzIcl1DAPCfH7Fv0WNBGFWobHKuJ_shHQgqTFC/exec';
 
     function handleReviewSubmit(e) {
@@ -1419,7 +1418,6 @@
       const submitBtn = document.querySelector('#review-form button[type="submit"]');
       const originalBtnText = submitBtn.innerHTML;
       
-      // เปลี่ยนสถานะปุ่มเป็นกำลังโหลด
       submitBtn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i> <span>กำลังส่งข้อมูล...</span>';
       submitBtn.disabled = true;
       lucide.createIcons();
@@ -1427,13 +1425,11 @@
       const comment = document.getElementById('review-comment').value.trim();
       const ratingScore = currentRating > 0 ? currentRating : 5;
 
-      // เตรียมข้อมูลเพื่อส่งไปยัง Google Sheets
       const formData = new FormData();
       formData.append('rating', ratingScore);
       formData.append('comment', comment);
       formData.append('language', currentLang);
 
-      // ส่งข้อมูลผ่าน fetch API
       fetch(scriptURL, { method: 'POST', body: formData })
         .then(response => {
           const successBox = document.getElementById('review-success');
@@ -1446,11 +1442,9 @@
           successBox.classList.remove('hidden');
           lucide.createIcons();
 
-          // ล้างฟอร์มและรีเซ็ตดาว
           document.getElementById('review-form').reset();
           setRating(0);
           
-          // ซ่อนข้อความสำเร็จหลังจาก 5 วินาที
           setTimeout(() => {
             successBox.classList.add('hidden');
           }, 5000);
@@ -1460,7 +1454,6 @@
           alert(currentLang === 'th' ? 'เกิดข้อผิดพลาดในการส่งข้อมูล โปรดลองอีกครั้ง' : 'Error submitting review. Please try again.');
         })
         .finally(() => {
-          // คืนค่าปุ่มกลับสู่สถานะปกติ
           submitBtn.innerHTML = originalBtnText;
           submitBtn.disabled = false;
           lucide.createIcons();
